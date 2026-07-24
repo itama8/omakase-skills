@@ -15,20 +15,23 @@ The collection focuses on the work around implementation—not just writing code
 | [`omakase-session-handoff`](skills/omakase-session-handoff/SKILL.md) | Records a truthful continuation point for work that is not ready for accepted closeout. | A session ends while work is planned, blocked, exploratory, uncommitted, or awaiting user testing. |
 | [`omakase-session-orient`](skills/omakase-session-orient/SKILL.md) | Routes a new task through a checkpoint map before loading broad project context. | You are starting a session or the relevant workstream is unclear. |
 | [`slop-catcher`](skills/slop-catcher/SKILL.md) | Performs a tightly scoped review for fragile glue, unclear ownership, and core-vs-extension drift. | You suspect hacks, architecture drift, or a feature boundary is getting blurry. |
+| [`writing-great-skills`](skills/writing-great-skills/SKILL.md) | A reference for creating and editing predictable, lean agent skills. | You are turning one of these examples into a project-specific skill or authoring a new one. |
 
-`omakase-refine` includes [`MODULES-AND-SEAMS.md`](skills/omakase-refine/MODULES-AND-SEAMS.md), a reference for deciding whether code should stay local or earn a deeper interface.
+`omakase-refine` includes [`MODULES-AND-SEAMS.md`](skills/omakase-refine/MODULES-AND-SEAMS.md), a reference for deciding whether code should stay local or earn a deeper interface. `writing-great-skills` includes a disclosed [`GLOSSARY.md`](skills/writing-great-skills/GLOSSARY.md) for its vocabulary and design principles.
 
-## Install
+## Use this repository as a skill workshop
 
-Clone this repository, then copy the skills you want into your project's skill directory:
+Clone this repository beside your own project. It is a reference and set of examples—not a package to install wholesale into an agent's skill directory.
 
 ```bash
 git clone https://github.com/itama8/omakase-skills.git
-mkdir -p /path/to/your-project/.pi/skills
-cp -R omakase-skills/skills/<skill-name> /path/to/your-project/.pi/skills/
 ```
 
-Keep the directory and `SKILL.md` filename intact. Install only the skills that match your workflow; the suite is intentionally composable.
+Then point your coding agent at both the clone and your project, and ask it to craft skills for the way your team actually works. Start with a prompt like:
+
+> Read `omakase-skills/skills/writing-great-skills/SKILL.md` and its `GLOSSARY.md`. Inspect this project’s architecture, documentation, validation commands, and delivery workflow. Use the relevant skills in `omakase-skills/skills/` as examples, then create a small, project-specific agent skill for **[the workflow/problem]**. Keep only requirements that apply here; give every step an observable completion criterion and document the trigger, scope, validation, and stop conditions.
+
+The agent should produce a new skill in the location and format your own agent environment uses. Keep this clone unchanged as the source material, so you can compare, revisit, and refine its examples over time.
 
 ## Adapt these to your project
 
@@ -40,7 +43,7 @@ These are templates, not a process you must adopt wholesale. Before using one, r
 - **Commit policy.** `omakase-checkpoint-closeout` assumes accepted work is committed before its devlog is written. Change the order or remove the commit steps if your team uses PR-only or squash workflows.
 - **Risk priorities.** The editor-centric guardrails in `omakase-refine` and `slop-catcher` should become your own non-negotiables: data integrity, security, migrations, latency, accessibility, availability, or another domain-specific contract.
 
-A good adaptation keeps the skill's decision points and proof requirements while removing names, tools, and invariants that do not apply. Start with a copy in your project, use it on real work, and tighten it based on the failures it catches.
+Use `writing-great-skills` as the authoring standard during this work: it helps the agent choose a useful trigger, keep steps and reference at the right level, add checkable completion criteria, and remove duplicated or no-op instructions. A good adaptation keeps the original skill's decision points and proof requirements while removing names, tools, and invariants that do not apply. Exercise the resulting project-specific skill on real work, then tighten it based on the failures it catches.
 
 ## Suggested workflow
 
