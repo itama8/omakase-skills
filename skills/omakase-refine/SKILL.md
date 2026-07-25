@@ -5,9 +5,9 @@ description: "Review or refine an active Omakase checkpoint. Use when the user a
 
 # Omakase Refine
 
-Make the checkpoint **lean and deep**: no more code or interface than the behavior needs, with necessary complexity concentrated behind interfaces that earn their keep.
+Review an existing checkpoint for whether it stayed **lean and deep** after implementation: no more code or interface than the behavior needs, with necessary complexity concentrated behind interfaces that earn their keep. New implementation should use `omakase-implement` so these decisions happen before the first edit.
 
-This is not code golf and not a generic architecture audit. A smaller diff is worse if it weakens the checkpoint contract; a new module is worse if it only moves code behind a second name.
+This is not code golf and not a generic architecture audit. A smaller diff is worse if it weakens the checkpoint contract. A larger or novel design is not a defect when its interface burden is justified; a new module is worse only when it moves code behind a second name without adding leverage or locality.
 
 ## Modes
 
@@ -83,7 +83,7 @@ For each module or interface the diff creates or materially changes, ask:
 - Do behavior and tests cross the same interface?
 - Does the shape increase **leverage** for callers and **locality** for future fixes?
 
-If a finding would create, remove, deepen, or relocate a module or seam, read [MODULES-AND-SEAMS.md](MODULES-AND-SEAMS.md) before recommending or applying it. Do not redesign a durable public interface from the first plausible idea.
+If a finding would create, remove, deepen, or relocate a module or seam, read [`docs/process/lean-deep-engineering.md`](../../../docs/process/lean-deep-engineering.md) before recommending or applying it. Do not redesign a durable public interface from the first plausible idea.
 
 Done when every structural recommendation explains why the module earns more depth or why an abstraction does not earn existence.
 
