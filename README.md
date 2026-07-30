@@ -2,28 +2,31 @@
 
 A public collection of project-level agent skills for running deliberate, traceable software checkpoints. They were developed for [Omakase](https://github.com/itama8/omakase-v2), an Electron editor, and are published here as Markdown playbooks you can adapt to your own project.
 
-The collection focuses on the work around implementation—not just writing code: orienting a session, protecting an accepted scope, reviewing architecture, preserving useful inline context, and leaving an honest handoff.
+The collection covers the work before, during, and after implementation. It helps agents resolve uncertain decisions, plan changes across architecture seams, survey codebase health, protect accepted scope, review changes, and leave an honest handoff.
 
 ## Skills at a glance
 
 | Skill | What it does | Use it when |
 | --- | --- | --- |
 | [`comment-hint-seams`](skills/comment-hint-seams/SKILL.md) | Adds sparse, high-value comments at ownership, safety, API, and extraction seams. | You want future maintainers or agents to understand a non-obvious boundary without filling code with narration. |
+| [`omakase-architecture-radar`](skills/omakase-architecture-radar/SKILL.md) | Surveys active development hotspots and ranks behavior-driven architecture candidates without editing code. | The codebase feels structurally expensive, but no refactor target is proven. |
 | [`omakase-checkpoint-closeout`](skills/omakase-checkpoint-closeout/SKILL.md) | Closes an accepted checkpoint with validation, scoped commits, and SHA-backed traceability. | A change works and has been explicitly accepted. |
 | [`omakase-checkpoint-map`](skills/omakase-checkpoint-map/SKILL.md) | Maintains a compact workstream ledger that routes future work to the right docs and code. | A durable workstream, its state, or its next action changes. |
+| [`omakase-cross-seam-plan`](skills/omakase-cross-seam-plan/SKILL.md) | Turns a clear destination into a coherent sequence of vertical checkpoints across behavior and authority seams. | A feature or architecture change is clear but too broad for one runnable checkpoint. |
 | [`omakase-implement`](skills/omakase-implement/SKILL.md) | Routes implementation work by risk before the first edit, then pins contracts, ownership, and proportionate proof. | You are about to implement a feature, fix, behavior change, refactor, or test-backed code change. |
 | [`omakase-refine`](skills/omakase-refine/SKILL.md) | Reviews or improves a checkpoint through contract, simplicity, and module-depth lenses. | You need a pre-acceptance review, cleanup, simplification, or justified extraction. |
 | [`omakase-session-handoff`](skills/omakase-session-handoff/SKILL.md) | Records a truthful continuation point for work that is not ready for accepted closeout. | A session ends while work is planned, blocked, exploratory, uncommitted, or awaiting user testing. |
 | [`omakase-session-orient`](skills/omakase-session-orient/SKILL.md) | Routes a new task through a checkpoint map before loading broad project context. | You are starting a session or the relevant workstream is unclear. |
 | [`omakase-ui-probe`](skills/omakase-ui-probe/SKILL.md) | Diagnoses runtime-only Electron UI failures with a CDP probe, then promotes the proved invariant into a durable contract. | A screenshot cannot expose the failure: geometry, ordering, focus/scroll, directional asymmetry, or compositor key-repeat behavior. |
+| [`omakase-wayfinder`](skills/omakase-wayfinder/SKILL.md) | Resolves a large effort as a map of decisions until the route becomes clear enough to plan. | The destination spans sessions or its load-bearing decisions depend on one another. |
 | [`slop-catcher`](skills/slop-catcher/SKILL.md) | Performs a tightly scoped review for fragile glue, unclear ownership, and core-vs-extension drift. | You suspect hacks, architecture drift, or a feature boundary is getting blurry. |
 | [`writing-great-skills`](skills/writing-great-skills/SKILL.md) | A reference for creating and editing predictable, lean agent skills. | You are turning one of these examples into a project-specific skill or authoring a new one. |
 
-`omakase-refine` includes [`MODULES-AND-SEAMS.md`](skills/omakase-refine/MODULES-AND-SEAMS.md), a reference for deciding whether code should stay local or earn a deeper interface. `writing-great-skills` includes a disclosed [`GLOSSARY.md`](skills/writing-great-skills/GLOSSARY.md) for its vocabulary and design principles.
+The planning skills share [`planning-and-architecture-routing.md`](references/planning-and-architecture-routing.md), which defines their soft entry, stop, and handoff signals. `omakase-refine` includes [`MODULES-AND-SEAMS.md`](skills/omakase-refine/MODULES-AND-SEAMS.md), a reference for deciding whether code should stay local or earn a deeper interface. `writing-great-skills` includes a disclosed [`GLOSSARY.md`](skills/writing-great-skills/GLOSSARY.md) for its vocabulary and design principles.
 
 ## Project synchronization
 
-The Omakase project’s [`.pi/skills`](https://github.com/itama8/omakase-v2/tree/master/.pi/skills) directory is the source catalog for the project-level skills above. This repository mirrors that catalog for review and reuse; its supporting authoring references remain separate. Project-relative paths and named scripts deliberately remain in the playbooks as concrete Omakase examples—adapt them to your own documentation, validation, and runtime before use.
+The Omakase project’s [`.pi/skills`](https://github.com/itama8/omakase-v2/tree/master/.pi/skills) directory is the source catalog for the project-level skills above. This repository mirrors that catalog for review and reuse. The public copy redirects shared process links to the bundled references in this repository. Other project-relative paths and named scripts remain as concrete Omakase examples. Adapt them to your own documentation, validation, and runtime before use.
 
 ## Use this repository as a skill workshop
 
@@ -53,11 +56,15 @@ Use `writing-great-skills` as the authoring standard during this work: it helps 
 
 ## Suggested workflow
 
+Use the lightest route that fits the current uncertainty. Skip any step whose entry condition is absent.
+
 1. Start with **session orient** to find the active workstream and smallest relevant context.
-2. Implement a small, testable checkpoint.
-3. Run **refine** or **slop catcher** before acceptance; use **comment hint seams** only for the few boundaries that need durable local context.
-4. If accepted, use **checkpoint closeout**. Otherwise, create a **session handoff**.
-5. Update the **checkpoint map** whenever the durable routing state changes.
+2. Use **wayfinder** when the route is too unclear to plan. Use **cross-seam plan** when the destination is clear but spans several checkpoints.
+3. Use **architecture radar** as a separate health check when structural pressure exists without a proven target.
+4. Implement one small, testable checkpoint.
+5. Run **refine** or **slop catcher** before acceptance. Use **comment hint seams** only for boundaries that need durable local context.
+6. If accepted, use **checkpoint closeout**. Otherwise, create a **session handoff**.
+7. Update the **checkpoint map** whenever durable routing state changes.
 
 ## Contributing
 

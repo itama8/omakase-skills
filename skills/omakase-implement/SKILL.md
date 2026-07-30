@@ -26,6 +26,8 @@ Done when the route follows the boundary crossed rather than the apparent size o
 
 ## 2. Pin the change
 
+If several load-bearing decisions prevent one checkpoint from being pinned, stop before coding. Recommend `omakase-cross-seam-plan`, or `omakase-wayfinder` when the decisions are still too unclear to plan. Do not disguise unresolved planning as implementation.
+
 For every route, identify:
 
 - behavior being added, fixed, or preserved;
@@ -62,7 +64,7 @@ Consider, in order:
 
 This is a preference order, not a command to stop thinking. Prefer the simplest solution that preserves the contract and leaves the design clearer. A larger or novel design is valid when its added interface burden is justified and it improves correct-use defaults, leverage, or locality.
 
-For consequential behavioral choices, compare genuinely different approaches before selecting one. For structural/high-risk work, read [`docs/process/lean-deep-engineering.md`](../../../docs/process/lean-deep-engineering.md) and apply its module-earning and design-it-twice gates before the first structural edit. Routine work does not pay this cost.
+For consequential behavioral choices, compare genuinely different approaches before selecting one. For structural/high-risk work, read [`MODULES-AND-SEAMS.md`](../omakase-refine/MODULES-AND-SEAMS.md) and apply its module-earning and design-it-twice gates before the first structural edit. Routine work does not pay this cost.
 
 Done when the chosen shape is justified by present behavior and boundaries, not hypothetical flexibility or raw line count.
 

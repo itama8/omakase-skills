@@ -11,8 +11,8 @@ Orient the session through the checkpoint map before reading deeper docs or code
 
 1. **Start tight.** Do not reread `AGENTS.md` unless asked. Read `AGENTS-README.md` only if the docs spine is not already known.
    - Done when no broad docs have been loaded.
-2. **Route.** Read `docs/plans/checkpoint-map.md` and match the task to one row by workstream, state, next checkpoint, docs, or code entry.
-   - Done when there is one matched row or an explicit unmatched decision.
+2. **Route.** Read `docs/plans/checkpoint-map.md` and match the task to one row by workstream, state, next checkpoint, docs, or code entry. Then select the lightest sufficient process from [`planning-and-architecture-routing.md`](../../references/planning-and-architecture-routing.md).
+   - Done when there is one matched row or an explicit unmatched decision, plus a process route with a concrete signal.
 3. **Load only row context.** For a matched row, read only its `Read first` docs/devlogs and inspect only needed code entry points.
    - Done when the checkpoint can be stated without opening unrelated plans.
 4. **Handle misses.** If no row fits, check `docs/plans/plan-index.md`, `docs/features/feature-surface-index.md`, and recent devlog headings. If the task is durable, invoke `omakase-checkpoint-map`; otherwise treat it as a one-off under the nearest row or devlog only.
@@ -35,5 +35,7 @@ Create/propose a row only for a durable product surface, architecture seam, mult
 - Read first: <docs/devlogs>
 - Code entry: <files/functions>
 - Validation: <commands/manual checks>
+- Skill route: <direct / wayfinder / cross-seam plan / architecture radar / implement / refine>
+- Routing signal: <why this is the lightest sufficient route>
 - Checkpoint-map action: <none/update row/create row>
 ```

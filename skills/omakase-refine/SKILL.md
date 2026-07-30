@@ -18,6 +18,8 @@ Infer the mode from the request:
 
 The current working-tree diff is the default scope. A named file, feature, commit range, or checkpoint overrides it. Never absorb unrelated worktree changes.
 
+If the review exposes repository-wide recurring friction rather than a bounded finding, report the local consequence and recommend `omakase-architecture-radar`. Do not broaden the active refinement into an unsolicited repository survey. If a selected change spans behavior families or authority boundaries, recommend `omakase-cross-seam-plan` before editing.
+
 ## Process
 
 ### 1. Pin the checkpoint
@@ -83,7 +85,7 @@ For each module or interface the diff creates or materially changes, ask:
 - Do behavior and tests cross the same interface?
 - Does the shape increase **leverage** for callers and **locality** for future fixes?
 
-If a finding would create, remove, deepen, or relocate a module or seam, read [`docs/process/lean-deep-engineering.md`](../../../docs/process/lean-deep-engineering.md) before recommending or applying it. Do not redesign a durable public interface from the first plausible idea.
+If a finding would create, remove, deepen, or relocate a module or seam, read [`MODULES-AND-SEAMS.md`](MODULES-AND-SEAMS.md) before recommending or applying it. Do not redesign a durable public interface from the first plausible idea.
 
 Done when every structural recommendation explains why the module earns more depth or why an abstraction does not earn existence.
 

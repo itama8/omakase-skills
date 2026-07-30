@@ -21,7 +21,7 @@ This is a review skill. Do not rewrite code unless the user asks for remediation
    - Done when findings have file/function evidence or are discarded.
 5. **Rank severity.** Use Blocker/High/Medium/Low/Observation and state why.
    - Done when each finding has impact and trigger condition.
-6. **Recommend a checkpoint.** Suggest the smallest coherent fix, doc action, or accepted-debt note.
+6. **Recommend a checkpoint.** Suggest the smallest coherent fix, doc action, or accepted-debt note. If the same friction recurs across unrelated checkpoints, recommend `omakase-architecture-radar` instead of widening this review.
    - Done when the next action is testable or explicitly deferred.
 
 ## Severity

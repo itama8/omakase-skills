@@ -11,8 +11,8 @@ Maintain `docs/plans/checkpoint-map.md` as the compact routing ledger. It is not
 
 1. **Classify.** Decide whether the task updates an existing durable workstream or creates one.
    - Done when every changed behavior/plan is assigned to one existing row or one new row.
-2. **Apply the durable row test.** Create a row only for a product surface, architecture seam, multi-checkpoint plan, or recurring reliability/security/process area.
-   - Done when one-off bugs/copy tweaks are excluded from row creation.
+2. **Apply the durable row test.** Create a row only for a product surface, architecture seam, multi-checkpoint plan, or recurring reliability/security/process area. A Wayfinder decision map or Architecture Radar candidate does not earn a row by itself. Add one when it produces a durable direction or concrete next checkpoint.
+   - Done when one-off bugs, copy tweaks, unresolved decision maps, and unselected survey candidates are excluded from row creation.
 3. **Edit the map.** Update only affected row(s): status, current state, last checkpoint, next checkpoint, read-first docs, and code entry.
    - Done when a future agent can start from the row without reading unrelated docs.
 4. **Sync indexes if classification changed.** Update `docs/plans/plan-index.md` for active/backlog/historical movement; update feature/current-app docs only when user-visible state changed.
