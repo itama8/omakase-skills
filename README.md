@@ -66,6 +66,10 @@ Use the lightest route that fits the current uncertainty. Skip any step whose en
 6. If accepted, use **checkpoint closeout**. Otherwise, create a **session handoff**.
 7. Update the **checkpoint map** whenever durable routing state changes.
 
+## For non coding tasks
+
+These patterns can also be used as starting points outside software development. In that case, do not mechanically translate coding terminology into domain terminology. Identify the underlying workflow a skill is enforcing—such as orientation, uncertainty resolution, evidence gathering, bounded execution, review, acceptance, or handoff—and re-derive it for the target domain. Replace software-specific proof with evidence appropriate to the work: for example, source provenance and claim support in research, calculation checks and assumptions in engineering, or citation and quantitative consistency in report writing.
+
 ## Contributing
 
 Improvements and project-neutral variants are welcome. Please keep skills:
