@@ -9,6 +9,7 @@ The collection covers the work before, during, and after implementation. It help
 | Skill | What it does | Use it when |
 | --- | --- | --- |
 | [`comment-hint-seams`](skills/comment-hint-seams/SKILL.md) | Adds sparse, high-value comments at ownership, safety, API, and extraction seams. | You want future maintainers or agents to understand a non-obvious boundary without filling code with narration. |
+| [`doc-writer`](skills/doc-writer/SKILL.md) | Writes and rewrites technical prose in clear STE-style English: plans, devlogs, READMEs, PR descriptions, error messages. | You draft or edit any prose artifact the checkpoint workflow produces. Not for code, identifiers, or marketing copy. |
 | [`omakase-architecture-radar`](skills/omakase-architecture-radar/SKILL.md) | Surveys active development hotspots and ranks behavior-driven architecture candidates without editing code. | The codebase feels structurally expensive, but no refactor target is proven. |
 | [`omakase-checkpoint-closeout`](skills/omakase-checkpoint-closeout/SKILL.md) | Closes an accepted checkpoint with validation, scoped commits, and SHA-backed traceability. | A change works and has been explicitly accepted. |
 | [`omakase-checkpoint-map`](skills/omakase-checkpoint-map/SKILL.md) | Maintains a compact workstream ledger that routes future work to the right docs and code. | A durable workstream, its state, or its next action changes. |
@@ -22,7 +23,7 @@ The collection covers the work before, during, and after implementation. It help
 | [`slop-catcher`](skills/slop-catcher/SKILL.md) | Performs a tightly scoped review for fragile glue, unclear ownership, and core-vs-extension drift. | You suspect hacks, architecture drift, or a feature boundary is getting blurry. |
 | [`writing-great-skills`](skills/writing-great-skills/SKILL.md) | A reference for creating and editing predictable, lean agent skills. | You are turning one of these examples into a project-specific skill or authoring a new one. |
 
-The planning skills share [`planning-and-architecture-routing.md`](references/planning-and-architecture-routing.md), which defines their soft entry, stop, and handoff signals. `omakase-refine` includes [`MODULES-AND-SEAMS.md`](skills/omakase-refine/MODULES-AND-SEAMS.md), a reference for deciding whether code should stay local or earn a deeper interface. `writing-great-skills` includes a disclosed [`GLOSSARY.md`](skills/writing-great-skills/GLOSSARY.md) for its vocabulary and design principles.
+The planning skills share [`planning-and-architecture-routing.md`](references/planning-and-architecture-routing.md), which defines their soft entry, stop, and handoff signals. The whole collection is explained by [`checkpoint-method.md`](references/checkpoint-method.md), the incremental testable-slice method these skills operationalize, and [`devlog-template.md`](references/devlog-template.md), the log format the method requires. `omakase-refine` includes [`MODULES-AND-SEAMS.md`](skills/omakase-refine/MODULES-AND-SEAMS.md), a reference for deciding whether code should stay local or earn a deeper interface. `writing-great-skills` includes a disclosed [`GLOSSARY.md`](skills/writing-great-skills/GLOSSARY.md) for its vocabulary and design principles. `doc-writer` is a self-contained house style; adapt its word lists and slop bans to the tone your team wants.
 
 ## Project synchronization
 
@@ -48,6 +49,7 @@ These are templates, not a process you must adopt wholesale. Before using one, r
 
 - **Project name and architecture.** Replace `Omakase` and its renderer/preload/main, CodeMirror, document-operation, and Sushi terminology with your own system boundaries.
 - **Documentation locations.** Several workflow skills refer to `docs/plans/checkpoint-map.md`, `docs/plans/plan-index.md`, and `.devlog/`. Point them to your roadmap, issue tracker, ADRs, changelog, or remove those steps.
+- **Traceability weight.** The devlog template's frontmatter (`commit_match_confidence`, `commit_match_notes`, `contracts_touched`, `drift_status`) is Omakase's SHA-audit rig. Keep it if you need commit-to-log auditing; otherwise trim it and keep the `status` labels from `checkpoint-method.md`.
 - **Validation commands.** Replace `npm run typecheck`, build commands, and manual checks with the narrowest meaningful checks in your stack.
 - **Commit policy.** `omakase-checkpoint-closeout` assumes accepted work is committed before its devlog is written. Change the order or remove the commit steps if your team uses PR-only or squash workflows.
 - **Risk priorities.** The editor-centric guardrails in `omakase-refine` and `slop-catcher` should become your own non-negotiables: data integrity, security, migrations, latency, accessibility, availability, or another domain-specific contract.
