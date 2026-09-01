@@ -1,6 +1,6 @@
 # Omakase Skills
 
-A public collection of project-level agent skills for running deliberate, traceable software checkpoints. They were developed for [Omakase](https://github.com/itama8/omakase-v2), an Electron editor, and are published here as Markdown playbooks you can adapt to your own project.
+A public collection of project-level agent skills and a Pi extension for traceable software checkpoints. They were developed for [Omakase](https://github.com/itama8/omakase-v2), an Electron editor. The skills are Markdown playbooks that you can adapt to your own project.
 
 The collection covers the work before, during, and after implementation. It helps agents resolve uncertain decisions, plan changes across architecture seams, survey codebase health, protect accepted scope, review changes, and leave an honest handoff.
 
@@ -21,13 +21,22 @@ The collection covers the work before, during, and after implementation. It help
 | [`omakase-ui-probe`](skills/omakase-ui-probe/SKILL.md) | Diagnoses runtime-only Electron UI failures with a CDP probe, then promotes the proved invariant into a durable contract. | A screenshot cannot expose the failure: geometry, ordering, focus/scroll, directional asymmetry, or compositor key-repeat behavior. |
 | [`omakase-wayfinder`](skills/omakase-wayfinder/SKILL.md) | Resolves a large effort as a map of decisions until the route becomes clear enough to plan. | The destination spans sessions or its load-bearing decisions depend on one another. |
 | [`slop-catcher`](skills/slop-catcher/SKILL.md) | Performs a tightly scoped review for fragile glue, unclear ownership, and core-vs-extension drift. | You suspect hacks, architecture drift, or a feature boundary is getting blurry. |
+| [`typescript-best-practices`](skills/typescript-best-practices/SKILL.md) | Defines Omakase rules for constructive TypeScript models, boundary parsing, narrowing, and assertions. | You design or review TypeScript types, signatures, or boundary data. |
 | [`writing-great-skills`](skills/writing-great-skills/SKILL.md) | A reference for creating and editing predictable, lean agent skills. | You are turning one of these examples into a project-specific skill or authoring a new one. |
 
 The planning skills share [`planning-and-architecture-routing.md`](references/planning-and-architecture-routing.md), which defines their soft entry, stop, and handoff signals. The whole collection is explained by [`checkpoint-method.md`](references/checkpoint-method.md), the incremental testable-slice method these skills operationalize, and [`devlog-template.md`](references/devlog-template.md), the log format the method requires. `omakase-refine` includes [`MODULES-AND-SEAMS.md`](skills/omakase-refine/MODULES-AND-SEAMS.md), a reference for deciding whether code should stay local or earn a deeper interface. `writing-great-skills` includes a disclosed [`GLOSSARY.md`](skills/writing-great-skills/GLOSSARY.md) for its vocabulary and design principles. `doc-writer` is a self-contained house style; adapt its word lists and slop bans to the tone your team wants.
 
+## Omakase Bar extension
+
+[Omakase Bar](.pi/extensions/omakase-bar/README.md) reads Omakase's checkpoint map and exposes one Pi command. `/work-status` shows open workstreams, roadmap progress, linked plans, and checkpoint startup actions.
+
+The extension stays under `.pi/extensions/omakase-bar` so Pi can load it as a project-level extension. It expects `docs/plans/checkpoint-map.md` in the host project.
+
 ## Project synchronization
 
-The Omakase project’s [`.pi/skills`](https://github.com/itama8/omakase-v2/tree/master/.pi/skills) directory is the source catalog for the project-level skills above. This repository mirrors that catalog for review and reuse. The public copy redirects shared process links to the bundled references in this repository. Other project-relative paths and named scripts remain as concrete Omakase examples. Adapt them to your own documentation, validation, and runtime before use.
+The Omakase project's [`.pi/skills`](https://github.com/itama8/omakase-v2/tree/master/.pi/skills) directory is the source catalog for the project-level skills above. The project's [`.pi/extensions`](https://github.com/itama8/omakase-v2/tree/master/.pi/extensions) directory is the source for Omakase Bar.
+
+This repository mirrors both directories for review and reuse. The public skill copies redirect shared process links to the bundled references in this repository. Other project-relative paths and named scripts remain as concrete Omakase examples. Adapt them to your own documentation, validation, and runtime before use.
 
 ## Use this repository as a skill workshop
 

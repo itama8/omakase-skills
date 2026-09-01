@@ -59,6 +59,17 @@ Review independently of code shape:
 - Are note safety, Undo, cursor/selection, typing responsiveness, cleanup, cancellation, focus, accessibility, security, or error recovery weakened?
 - Do docs and tests assert the durable behavior, or merely mirror current implementation text?
 
+When the diff changes async, durable, lifecycle, process, external, or derived state, also ask:
+
+- What state or transition became reachable?
+- Did authority move or split?
+- Can execution stop between authority changes?
+- Can old work arrive after newer authority exists?
+- What does re-entry observe?
+- Can a simpler structure remove an awkward state?
+
+Review operation phase, resource health, and durable lifecycle as separate dimensions unless the implementation makes them one contract. Prioritize states by plausibility, consequence, and whether the diff changes them.
+
 Contract failures outrank simplification. Do not polish code that is implementing the wrong thing.
 
 ### 4. Run the lean pass
@@ -118,7 +129,7 @@ If the baseline is red, distinguish pre-existing failure from your changes befor
 
 Prefer an existing behavior contract through the module interface. Tests should survive internal refactoring and verify known outcomes, not recompute the implementation or assert private call structure. Use source-shape checks only when the contract is genuinely structural and cannot be exercised more directly.
 
-Run the narrowest relevant contract, then `npm run typecheck`. Add build, `npm test`, an Electron probe, or a manual pass according to the crossed boundary. Report anything automation cannot prove.
+Run the narrowest relevant contract, then `npm run typecheck`. Add build, `npm test`, an Electron probe, or a manual pass according to the crossed boundary. Distinguish observed verification, reasoned but unexercised risk, and remaining manual proof. Missing session evidence is a review gap, not proof that the behavior is defective.
 
 ## Omakase guardrails
 

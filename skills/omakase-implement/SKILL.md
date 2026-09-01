@@ -48,9 +48,19 @@ Trace only as far as the route requires:
 - **Structural/high-risk:** trace the complete interface, lifecycle, authority, mutation, failure, and validation path end to end.
 - **Experimental:** identify the production boundary the experiment must not cross and how the experiment can be deleted.
 
-For a bug, treat the report as a symptom. Find the shared root cause before patching a named caller; do not duplicate guards across sibling paths when one owning fix exists.
+For a bug, treat the report as a symptom. Find the shared root cause before patching a named caller. Do not duplicate guards across sibling paths when one owning fix exists.
 
-Done when the proposed edit sits at the behavior's owner rather than merely where the symptom appears.
+For behavioral or structural work that crosses async, durable, lifecycle, process, external, or derived state, run a proportional coherence pass. Record only the items that affect the checkpoint:
+
+- **Authority** — name the current owner of each relevant truth.
+- **Transition** — name the state change that the checkpoint adds or changes.
+- **Invariant** — state what must remain true across that transition.
+- **Interruption or supersession** — identify where work can stop or become stale.
+- **Recovery** — state what re-entry observes and which state remains authoritative.
+
+Do not create a state matrix for routine work. Do not combine operation phase, resource health, and durable lifecycle into one state type unless the behavior requires it. Rank reachable states by plausibility, consequence, and whether the checkpoint changes them.
+
+Done when the proposed edit sits at the behavior's owner and the meaningful temporal risks are clear.
 
 ## 4. Choose proportionately
 
@@ -64,6 +74,8 @@ Consider, in order:
 
 This is a preference order, not a command to stop thinking. Prefer the simplest solution that preserves the contract and leaves the design clearer. A larger or novel design is valid when its added interface burden is justified and it improves correct-use defaults, leverage, or locality.
 
+Before adding several guards or recovery handlers, ask whether one authority, atomic replacement, immutable identity, generation ordering, idempotency, or explicit lifecycle state can remove the incoherent state. Use these structures only when they match the real boundary.
+
 For consequential behavioral choices, compare genuinely different approaches before selecting one. For structural/high-risk work, read [`MODULES-AND-SEAMS.md`](../omakase-refine/MODULES-AND-SEAMS.md) and apply its module-earning and design-it-twice gates before the first structural edit. Routine work does not pay this cost.
 
 Done when the chosen shape is justified by present behavior and boundaries, not hypothetical flexibility or raw line count.
@@ -73,7 +85,8 @@ Done when the chosen shape is justified by present behavior and boundaries, not 
 - Run the narrow baseline before behavioral or structural edits when practical.
 - Make one coherent behavior slice at a time.
 - Keep accepted behavior green after each slice.
-- Test observable outcomes through the surviving interface; do not mirror private implementation structure.
+- Test observable outcomes through the surviving interface. Do not mirror private implementation structure.
+- For meaningful temporal risk, derive the test from the invariant. Exercise ordering, interruption, re-entry, or supersession only when the checkpoint makes that transition plausible and consequential.
 - Run `npm run typecheck` for TypeScript changes, plus the narrowest relevant contract. Add broader tests, an Electron probe, or manual validation according to the boundary crossed.
 - If the baseline is red, distinguish pre-existing failure from new failure before continuing.
 
@@ -89,9 +102,12 @@ Before reporting completion, verify:
 - no unrelated worktree changes were overwritten or absorbed;
 - no speculative interface, dependency, command, configuration, or planning prose entered;
 - necessary complexity remains where it protects policy or an invariant;
-- automation and remaining manual proof are reported honestly.
+- automation and remaining manual proof are reported honestly;
+- important new states and transitions have defined behavior;
+- interruption, re-entry, and stale completion preserve the named authority and invariant;
+- verification claims identify observed evidence and do not present reasoning alone as exercised proof.
 
-Do not perform cleanup merely to make the diff smaller. Do not manufacture a module to make the design look intentional.
+These closure checks apply only when the checkpoint crosses the relevant state. Do not perform cleanup merely to make the diff smaller. Do not manufacture a module to make the design look intentional.
 
 Done when the result is coherent, bounded, and ready for user testing or accepted-checkpoint closeout.
 
@@ -104,5 +120,6 @@ Keep implementation routing compact:
 - Risk: <routine / behavioral / structural-high-risk / experimental> — <trigger>
 - Contract: <behavior and key invariant>
 - Approach: <chosen shape and consequential alternative, if any>
-- Proof: <checks/manual validation>
+- Coherence: <optional; authority, temporal risk, and recovery rule when relevant>
+- Proof: <checks/manual validation; distinguish exercised proof from reasoned but unexercised risk>
 ```

@@ -63,7 +63,7 @@ Done when no probe lives in `/tmp` after promotion, and every recurring probe cl
 - Do not stop at diagnosis. An invariant proved once and not promoted is the most expensive bug to re-debug.
 - Do not probe what a Node contract already covers. `test:core-contracts` is cheaper than a CDP session for every regression it already owns.
 - Do not touch the real profile or real notes. Isolated `--user-data-dir`, copied affected state, nothing else.
-- Do not ship the probe. The accepted commit changes `src/`; the probe and promoted contract live under `scripts/` and `/tmp`.
+- Do not ship a temporary diagnostic probe. Delete it after promotion. Persist only a recurring probe under `scripts/`, and keep the promoted contract under `scripts/`.
 
 ## Output
 

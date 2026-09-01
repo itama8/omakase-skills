@@ -1,0 +1,298 @@
+# TypeScript patterns
+
+Code examples for each rule in `SKILL.md`. The seam and boundary vocabulary lives in [`MODULES-AND-SEAMS.md`](../../omakase-refine/MODULES-AND-SEAMS.md).
+
+## Branded types
+
+Brand primitives so callers cannot mix them. Validate once at creation. Downstream code trusts the branded type.
+
+```ts
+declare const noteIdBrand: unique symbol;
+type NoteId = string & { readonly [noteIdBrand]: true };
+
+function parseNoteId(input: string): NoteId {
+  if (!isUUID(input)) throw new Error(`Invalid note id: ${input}`);
+  return input as NoteId;
+}
+
+function focusNote(id: NoteId): void {
+  /* input is trusted */
+}
+```
+
+TypeScript cannot infer a brand from runtime validation. Keep the required assertion inside the validating constructor.
+
+## Discriminated unions
+
+If a bug forces the question "wait, can this combination actually happen?", the type is too loose. Model variants with a literal discriminant: every variant shares the field name and each variant's value is unique, so impossible combos can't be represented.
+
+```ts
+// Don't. Boolean + optionals lets contradictory states exist.
+type DiffState = { loading: boolean; diff?: GitDiff; error?: string };
+
+// Do. Only valid states exist.
+type DiffState =
+  | { kind: "loading" }
+  | { kind: "ready"; diff: GitDiff }
+  | { kind: "error"; error: string };
+```
+
+Pick one discriminant name (`kind`, `type`, `tag`) and stick to it.
+
+## Constructive modeling
+
+Build the type from parts that are all legal instead of restricting a loose type with runtime checks. Adding is easier than subtracting.
+
+Non-empty, via a variadic tuple:
+
+```ts
+type NonEmpty<T> = [T, ...T[]];
+
+// Don't: T[] plus a length check every caller must repeat
+function pickWinner(entries: string[]): string {
+  if (entries.length === 0) throw new Error("no entries");
+  return entries[Math.floor(Math.random() * entries.length)];
+}
+
+// Do: an empty value of the type can't exist
+function pickWinner(entries: NonEmpty<string>): string {
+  return entries[Math.floor(Math.random() * entries.length)];
+}
+```
+
+Where a plain `T[]` arrives, narrow once with a guard. The fact then travels in the type:
+
+```ts
+const isNonEmpty = <T>(arr: T[]): arr is NonEmpty<T> => arr.length > 0;
+```
+
+Even length, as pairs. TypeScript has no refinement types (no `arr.length % 2 === 0` at the type level); you don't need one:
+
+```ts
+type Pairs<T> = [T, T][];
+```
+
+A time range, as start plus duration:
+
+```ts
+// Don't: a comment holds the invariant
+type TimeRange = { start: Date; end: Date }; // start <= end
+
+// Do: a negative range can't be written; derive end when needed
+type TimeRange = { start: Date; durationMs: number };
+```
+
+Keep `durationMs` a plain number. Brand it (per Branded types) only if a raw number could be passed where a duration is expected, not by reflex. A `Pairs<T>` is an even-length list under the interpretation you give it, the same way `{ start, durationMs }` is a range. Pick the representation that makes the bad state unconstructable, then expose the reading you need on top (`pairs.flat()`, a `rangeEnd()` helper).
+
+## Simplest total type
+
+Don't strengthen everything. Keep `T[]` when every operation on it is total:
+
+```ts
+const sum = (xs: number[]) => xs.reduce((a, b) => a + b, 0); // [] is 0, fine
+```
+
+Strengthen when the loose type forces a lie at a use site. The tells are `!`, `arr[0] as T`, and a "should never happen" throw:
+
+```ts
+// Don't: partiality smuggled past the compiler
+function newestSession(sessions: Session[]): Session {
+  return sessions.at(0)!;
+}
+
+// Do: strengthen the input; the assertion disappears
+function newestSession(sessions: NonEmpty<Session>): Session {
+  return sessions[0];
+}
+```
+
+Weakening the result to `Session | undefined` is the other total signature. Either way the empty case lands at the call site, the one place that knows what empty means.
+
+## `unknown` over `any`
+
+`any` disables type checking for everything it touches. External data is always `unknown`. Narrow before use.
+
+```ts
+// Don't
+function handle(input: any) {
+  return input.foo.bar;
+}
+
+// Do
+function handle(input: unknown) {
+  if (typeof input === "object" && input !== null && "foo" in input) {
+    // narrowed; compiler verifies access
+  }
+}
+```
+
+External sources include RPC payloads, `JSON.parse`, `postMessage`, IPC, file contents, environment variables, database results.
+
+## No unvalidated assertions
+
+An assertion can hide a runtime mismatch. Prefer narrowing or construct a new value from validated fields.
+
+```ts
+// Do not bypass the boundary.
+const user = data as User;
+
+// Build a valid value from fields TypeScript has narrowed.
+function parseUser(data: unknown): User {
+  if (typeof data !== "object" || data === null) {
+    throw new Error("expected object");
+  }
+  if (!("id" in data) || typeof data.id !== "string") {
+    throw new Error("expected id");
+  }
+  if (!("name" in data) || typeof data.name !== "string") {
+    throw new Error("expected name");
+  }
+  return { id: data.id, name: data.name };
+}
+```
+
+When removing an assertion, identify why TypeScript cannot infer the value:
+
+- Add a discriminant when variants are ambiguous.
+- Narrow an overly wide source type.
+- Add a parser at an untyped boundary.
+- Use a branded constructor for a validated nominal value.
+- Use `satisfies` when the goal is shape checking without widening.
+
+Keep an unavoidable assertion local to the validating boundary. Do not let asserted values travel before validation.
+
+## Narrowing hierarchy
+
+From best to last-resort:
+
+1. **Discriminated union switch / if.** Compiler narrows automatically.
+2. **`in` operator.** `"key" in obj` narrows to variants containing that key.
+3. **`typeof` / `instanceof`.** For primitives and class instances.
+4. **User-defined type guard.** When the above aren't enough.
+5. **Validated local assertion.** Use only when TypeScript cannot express the proved fact.
+
+```ts
+function area(s: Shape): number {
+  if ("radius" in s) return Math.PI * s.radius ** 2; // narrowed to circle
+  return s.width * s.height; // narrowed to rect
+}
+```
+
+## Type guards
+
+A guard must actually verify the claim. A lying guard is worse than `as` because the bug hides behind a name that says it's safe.
+
+```ts
+function isCircle(s: Shape): s is Shape & { kind: "circle" } {
+  return s.kind === "circle";
+}
+```
+
+Prefer discriminant narrowing when possible. The guard adds a layer the reader has to follow.
+
+## Exhaustiveness
+
+In default arms, assign the discriminant to a `never`-typed local. The compiler errors if a new variant is added without handling.
+
+```ts
+// Value-returning switch
+function area(s: Shape): number {
+  switch (s.kind) {
+    case "circle":
+      return Math.PI * s.radius ** 2;
+    case "rect":
+      return s.width * s.height;
+    default: {
+      const _exhaustive: never = s;
+      return _exhaustive;
+    }
+  }
+}
+
+// Void switch
+function handle(s: Shape): void {
+  switch (s.kind) {
+    case "circle":
+      drawCircle(s);
+      break;
+    case "rect":
+      drawRect(s);
+      break;
+    default: {
+      const _exhaustive: never = s;
+      void _exhaustive;
+    }
+  }
+}
+```
+
+Return-style in value-returning switches; void-style in statement switches.
+
+## `satisfies` over `as`
+
+`satisfies` validates without widening literal types.
+
+```ts
+// Don't. Widens, loses literal types.
+const config = { theme: "dark", cols: 3 } as Config;
+
+// Do. Validates AND preserves literal types.
+const config = { theme: "dark", cols: 3 } satisfies Config;
+// config.theme is "dark" (literal), not string
+```
+
+## Boundary validation
+
+Validate once where data crosses in. Trust types inside. [`MODULES-AND-SEAMS.md`](../../omakase-refine/MODULES-AND-SEAMS.md) names the Omakase boundaries. Preload IPC is a typed authority crossing. Document operations own durable mutation. Stable command IDs and IPC payloads are interface contracts.
+
+- **Wire formats** (proto, JSON-RPC): parse with `ignoreUnknownFields` so forward-compatible changes don't break old clients.
+- **Persisted JSON:** versioned blob with a try/catch around the parse.
+- **Don't re-validate** deep in call chains.
+
+## Schema-derived types
+
+When a `.proto`, OpenAPI spec, GraphQL schema, or database migration already defines a shape, derive from the generated types instead of duplicating them.
+
+```ts
+// Don't. Duplicate shape, drifts when the schema changes.
+type CheckSummary = {
+  totalCount: number;
+  checks: { name: string; status: string }[];
+};
+function renderChecks(s: CheckSummary) {
+  /* ... */
+}
+
+// Do. Derive from the generated schema type.
+import type { ChecksMessage } from "<generated module>";
+function renderChecks(s: Pick<ChecksMessage, "totalCount" | "checks">) {
+  /* ... */
+}
+```
+
+Reach for `Pick`, `Omit`, `Parameters`, `ReturnType`, `Awaited`, `typeof` before writing a new interface.
+
+## Object args
+
+```ts
+// Don't. Swap two args, still compiles.
+openFile(uri, {
+  startLineNumber: 10,
+  startColumn: 1,
+  endLineNumber: 10,
+  endColumn: 1,
+});
+
+// Do. Order-independent, self-documenting.
+openFile({
+  uri,
+  selection: {
+    startLineNumber: 10,
+    startColumn: 1,
+    endLineNumber: 10,
+    endColumn: 1,
+  },
+});
+```
+
+Skip on hot paths: per-frame render, tokenizers, parsers, anything in a tight loop where the allocation cost matters.

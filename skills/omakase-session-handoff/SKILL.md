@@ -9,8 +9,8 @@ Leave a truthful continuation trace without closing an unaccepted checkpoint.
 
 ## Steps
 
-1. **Classify state.** Inspect `git status --short` and choose `planned`, `user-testing`, `blocked`, `stable` uncommitted, or `closed` no-op.
-   - Done when the status does not imply false acceptance.
+1. **Classify state.** Inspect `git status --short` and choose `planned`, `implemented`, `user-testing`, `blocked`, `regressed`, or `stable` uncommitted.
+   - Done when the status matches `docs/checkpoint-method.md` and does not imply false acceptance.
 2. **Choose devlog path.** Use `.devlog/YYYY-MM-DD.md` or next `.devlog/YYYY-MM-DD-sNN.md`.
    - Done when the path is unique or the intended existing log is selected.
 3. **Write the handoff.** Include goal/scope, files touched, changes, validation, user result if any, known issues, next action, and commit traceability.
@@ -31,17 +31,17 @@ session: NN
 project: omakase-v2
 phase: <area>
 checkpoint: <name>
-status: planned | user-testing | blocked | stable | closed
+status: planned | implemented | user-testing | stable | blocked | regressed
 focus: <one line>
 worked_on: <one line>
 contracts_touched:
   - <paths>
-drift_status: none | contained | needs-follow-up
+drift_status: none | detected | resolved
 commit: none
 commits: []
 commit_match_confidence: 0.00
 commit_match_notes: "No commit yet; session handoff only."
-session_outcome: pending | blocked | closed
+session_outcome: open | closed
 next_files:
   - <paths>
 handoff_ready: true

@@ -1,6 +1,8 @@
-# Modules and seams
+# Lean and deep engineering
 
-Load this reference only when a refinement finding would create, remove, deepen, or relocate a module or seam.
+**Protect contracts; explore solutions.**
+
+Load this reference before introducing or materially changing a durable module, interface, or seam, and when a refinement finding would create, remove, deepen, or relocate one. These are design tests, not quotas: they reject speculative structure without treating novelty, one caller, or a larger coherent change as defects by themselves.
 
 ## Vocabulary
 
@@ -38,6 +40,7 @@ Do not measure depth by implementation lines. Padding is not depth; caller lever
 - A renderer feature module should hide one coherent UI behavior family while leaving DOM/CM6 integration at the narrowest practical edge.
 - Feature-local transient projections may keep internal seams private. Do not expose them just to unit-test helpers.
 - Stable command IDs, operation variants, and IPC payloads are interface contracts; changing them requires checkpoint intent and migration consideration.
+- **Migrate, then delete.** When a new internal interface replaces an old one, migrate every caller and delete the old path in the same wave. A compatibility layer kept for internal callers becomes permanent. A temporary adapter is time-boxed or it does not exist.
 
 ## Classify dependencies before deepening
 
@@ -63,7 +66,7 @@ For each sketch state:
 - validation through the interface;
 - where leverage or locality is weak.
 
-Compare the shapes by depth, locality, correct-use defaults, misuse risk, and seam placement. Recommend one or a deliberate hybrid. Alternatives are a thinking tool, not permission to add flexibility from all three.
+Compare the shapes by depth, locality, correct-use defaults, misuse risk, and seam placement. Recommend one or a deliberate hybrid. Alternatives protect creativity from premature closure; they are not permission to add flexibility from all three.
 
 ## Deepen by replacement
 
