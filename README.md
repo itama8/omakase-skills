@@ -28,9 +28,9 @@ The planning skills share [`planning-and-architecture-routing.md`](references/pl
 
 ## Omakase Bar extension
 
-[Omakase Bar](.pi/extensions/omakase-bar/README.md) reads Omakase's checkpoint map and exposes one Pi command. `/work-status` shows open workstreams, roadmap progress, linked plans, and checkpoint startup actions.
+[Omakase Bar](extensions/omakase-bar/README.md) reads Omakase's checkpoint map and exposes one Pi command. `/work-status` shows open workstreams, roadmap progress, linked plans, and checkpoint startup actions.
 
-The extension stays under `.pi/extensions/omakase-bar` so Pi can load it as a project-level extension. It expects `docs/plans/checkpoint-map.md` in the host project.
+This repository stores the extension under `extensions/omakase-bar`. Copy that directory to `.pi/extensions/omakase-bar` in the host project so Pi can load it. The host project must have `docs/plans/checkpoint-map.md`.
 
 ## Project synchronization
 
