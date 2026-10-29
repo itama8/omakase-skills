@@ -9,6 +9,7 @@ The collection covers the work before, during, and after implementation. It help
 | Skill | What it does | Use it when |
 | --- | --- | --- |
 | [`comment-hint-seams`](skills/comment-hint-seams/SKILL.md) | Adds sparse, high-value comments at ownership, safety, API, and extraction seams. | You want future maintainers or agents to understand a non-obvious boundary without filling code with narration. |
+| [`dvdst-session-analysis`](skills/dvdst-session-analysis/SKILL.md) | Uses [DVDST](https://github.com/itama8/divya-drushti-dvdst) to query coding-agent session evidence. | You are looking back at Pi, Claude Code, or Codex sessions, for any purpose. |
 | [`doc-writer`](skills/doc-writer/SKILL.md) | Writes and rewrites technical prose in clear STE-style English: plans, devlogs, READMEs, PR descriptions, error messages. | You draft or edit any prose artifact the checkpoint workflow produces. Not for code, identifiers, or marketing copy. |
 | [`omakase-architecture-radar`](skills/omakase-architecture-radar/SKILL.md) | Surveys active development hotspots and ranks behavior-driven architecture candidates without editing code. | The codebase feels structurally expensive, but no refactor target is proven. |
 | [`omakase-checkpoint-closeout`](skills/omakase-checkpoint-closeout/SKILL.md) | Closes an accepted checkpoint with validation, scoped commits, and SHA-backed traceability. | A change works and has been explicitly accepted. |
@@ -38,6 +39,11 @@ This repository stores the extension under `extensions/omakase-bar`. Copy that d
 The Omakase project's [`.pi/skills`](https://github.com/itama8/omakase-v2/tree/master/.pi/skills) directory is the source catalog for the project-level skills above. The project's [`.pi/extensions`](https://github.com/itama8/omakase-v2/tree/master/.pi/extensions) directory is the source for Omakase Bar.
 
 This repository mirrors both directories for review and reuse. The public skill copies redirect shared process links to the bundled references in this repository. Other project-relative paths and named scripts remain as concrete Omakase examples. Adapt them to your own documentation, validation, and runtime before use.
+
+The standalone `dvdst-session-analysis` skill is copied from
+[DVDST](https://github.com/itama8/divya-drushti-dvdst/tree/master/skills/dvdst-session-analysis),
+its source catalog. It works across projects and requires a DVDST checkout with
+dependencies installed; the skill describes how to run it.
 
 ## Use this repository as a skill workshop
 
