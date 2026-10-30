@@ -1,6 +1,6 @@
 ---
 name: omakase-refine
-description: "Review or refine an active Omakase checkpoint. Use when the user asks for code review, cleanup, simplification, module extraction, seam design, or a pre-acceptance refinement pass. Combines lean implementation with deep-module design while protecting Omakase's editor, authority, and checkpoint contracts."
+description: "Use when reviewing or refining an existing Omakase diff, checkpoint, or selected extraction for correctness, simplification, or interface design."
 ---
 
 # Omakase Refine

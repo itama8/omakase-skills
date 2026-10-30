@@ -1,6 +1,6 @@
 ---
 name: omakase-scout
-description: "Delegate read-only exploration to a Pi scout so file and doc reads stay out of the main context. Use before a trace that would take more than about three reads: where is X handled, who calls Y, what do these plan docs say about Z, how does a reference repo do W. Not for edits, design decisions, or commits."
+description: "Use when answering a factual Omakase code or documentation question requires several file reads. Read mutation, Undo, persistence, authority, and security paths directly."
 ---
 
 # Omakase Scout

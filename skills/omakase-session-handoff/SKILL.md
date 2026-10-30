@@ -1,6 +1,6 @@
 ---
 name: omakase-session-handoff
-description: "Handoff an Omakase session that is planned, user-testing, blocked, exploratory, or uncommitted. Use at session end when accepted closeout is not appropriate."
+description: "Use when ending or handing off an Omakase session whose work remains planned, exploratory, awaiting user testing, blocked, or uncommitted."
 ---
 
 # Omakase Session Handoff

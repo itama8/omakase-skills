@@ -1,6 +1,6 @@
 ---
 name: slop-catcher
-description: "Catch slop in an Omakase feature, checkpoint, or source slice. Use when the user asks if an implementation is clean, mentions hacks/fragility/architecture drift, or wants a core-vs-extension review."
+description: "Use when inspecting an Omakase implementation for hacks, fragility, unclear ownership, or drift across core and extension boundaries."
 ---
 
 # Slop Catcher

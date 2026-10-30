@@ -1,6 +1,6 @@
 ---
 name: omakase-ui-probe
-description: "Diagnose Omakase UI bugs whose failure lives in runtime state a screenshot cannot reach — use when one direction breaks while its symmetric works, a caret/selection/card/scroll lands against stale or off-viewport geometry, or a held key or compositor repeat leaks characters that should be owned. Build a probe that drives Electron over Chrome DevTools, reads structured editor state, falsifies with controlled variants, and promotes the proved invariant to a persisted contract. Not for aesthetic review or bugs a Node contract already owns."
+description: "Use when diagnosing Omakase interaction bugs involving live editor state, layout, focus, scrolling, or keyboard events that screenshots and pure Node tests cannot explain."
 ---
 
 # Omakase UI Probe

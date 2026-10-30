@@ -1,6 +1,6 @@
 ---
 name: omakase-checkpoint-map
-description: "Map Omakase durable workstreams in docs/plans/checkpoint-map.md. Use when current state, next action, docs/code routing, active/backlog status, or a new durable workstream changes."
+description: "Use when an Omakase durable workstream's state, next checkpoint, status, or documentation and code entry points change, or a new durable workstream is established."
 ---
 
 # Omakase Checkpoint Map

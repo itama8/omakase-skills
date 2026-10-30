@@ -1,6 +1,6 @@
 ---
 name: typescript-best-practices
-description: "TypeScript rules for Omakase: discriminated unions, branded types, constructive modeling, unknown over any, no unvalidated assertions, boundary parsing. Use when designing types, writing or reviewing TypeScript signatures, or a type-related bug appears."
+description: "Use when designing or reviewing Omakase TypeScript types and signatures, or diagnosing a type-related bug."
 ---
 
 # TypeScript best practices

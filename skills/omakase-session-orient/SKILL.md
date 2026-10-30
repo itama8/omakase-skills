@@ -1,6 +1,6 @@
 ---
 name: omakase-session-orient
-description: "Orient an Omakase session through checkpoint-map routing. Use at task/session start, when workstream context is unclear, or before implementation to avoid bulk-reading docs."
+description: "Use at the start of an Omakase task or when its workstream, current checkpoint, or continuation context is unclear."
 ---
 
 # Omakase Session Orient

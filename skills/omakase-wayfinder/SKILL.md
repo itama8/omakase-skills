@@ -1,6 +1,6 @@
 ---
 name: omakase-wayfinder
-description: "Resolve a large Omakase effort whose route is still unclear. Use when the destination spans sessions, load-bearing decisions depend on one another, or the work is too foggy for a coherent feature plan. Produces decisions, not implementation checkpoints or code."
+description: "Use when a large Omakase effort has unresolved decisions that prevent a coherent implementation plan."
 ---
 
 # Omakase Wayfinder

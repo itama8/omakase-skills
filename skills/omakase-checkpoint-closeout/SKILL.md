@@ -1,6 +1,6 @@
 ---
 name: omakase-checkpoint-closeout
-description: "Closeout an accepted Omakase checkpoint: validate, commit accepted scope first, then write devlog/checkpoint-map updates with real SHA(s). Use when the user says it works, accepts, or asks to commit/close."
+description: "Use when the user explicitly accepts an Omakase checkpoint or asks to commit or close it."
 ---
 
 # Omakase Checkpoint Closeout

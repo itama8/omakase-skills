@@ -1,11 +1,6 @@
 ---
 name: doc-writer
-description: >
-  Write and rewrite technical prose in clear STE-style English (docs, plans,
-  READMEs, design docs, PR descriptions, error messages, release notes,
-  runbooks, comments). Load this skill before drafting or editing any of those.
-  Also use when the user wants plain writing, less AI slop, or a controlled
-  style. Do not use for code, identifiers, or command syntax.
+description: "Use when drafting or editing technical prose, or when the user requests plain or controlled writing. Exclude marketing copy, essays, and writing that needs a distinct voice."
 ---
 
 # doc-writer

@@ -1,6 +1,6 @@
 ---
 name: comment-hint-seams
-description: "Annotate seams in an active Omakase code change. Use when the user asks for seam comments, future-agent hints, core-vs-feature markings, extraction hints, or inline architecture notes."
+description: "Use when the user asks for inline Omakase architecture hints about ownership, invariants, core versus feature boundaries, or future extraction."
 ---
 
 # Comment Hint Seams

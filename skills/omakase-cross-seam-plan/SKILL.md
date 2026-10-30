@@ -1,6 +1,6 @@
 ---
 name: omakase-cross-seam-plan
-description: "Plan a clear Omakase feature or architecture change that spans multiple behavior, process, authority, source, Sushi, or extension seams. Use before implementation when one runnable checkpoint cannot represent the whole route. Produces a coherent vertical checkpoint plan without writing production code."
+description: "Use when an Omakase destination is clear, but implementation needs several coordinated checkpoints across behavior or architecture boundaries."
 ---
 
 # Omakase Cross-Seam Plan

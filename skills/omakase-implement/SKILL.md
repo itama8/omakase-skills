@@ -1,6 +1,6 @@
 ---
 name: omakase-implement
-description: "Implement any Omakase feature, bug fix, behavioral change, refactor, or test-backed code change. Use before the first code edit to scale engineering rigor to risk: keep routine changes light, trace behavioral changes, and fully design changes crossing editor mutation, Undo, persistence, authority, security, or durable interfaces."
+description: "Use before the first code edit for any Omakase feature, bug fix, behavior change, refactor, or test change."
 ---
 
 # Omakase Implement

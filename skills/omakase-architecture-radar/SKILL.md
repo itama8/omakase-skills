@@ -1,6 +1,6 @@
 ---
 name: omakase-architecture-radar
-description: "Survey Omakase development hotspots for compounding architecture friction and behavior-driven extraction candidates. Use for periodic codebase health checks when no specific refactor target is proven. Reports ranked candidates without editing code or designing detailed interfaces."
+description: "Use when assessing Omakase codebase health or recurring architecture friction before a specific refactor target is established."
 ---
 
 # Omakase Architecture Radar
